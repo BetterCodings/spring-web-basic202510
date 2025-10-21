@@ -1,6 +1,7 @@
 package com.codeit.springwebbasic.book.repository;
 
 import com.codeit.springwebbasic.book.entity.Book;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +11,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
+@Repository
 public class BookRepository {
-
 
     // 웹 애플리케이션은 동시에 여러 요청이 한꺼번에 들어올 수  있기 때문에
     // 멀티 스테르에서도 안전하게 사용할 수 있는 HashMap 사용
@@ -31,7 +32,7 @@ public class BookRepository {
     // 도서 조회
     public List<Book> findAll() {
         // Map에서 Value들만 전부 깨낼 후 List로 반환.
-        return new ArrayList(store.values());
+        return new ArrayList<>(store.values());
     }
 
     // id에 따라 조회가 안될 수도 있잖아 -> 조회가 안되면 null 리턴 -> NPE 발생 가능성 높아짐.
@@ -39,6 +40,14 @@ public class BookRepository {
     public Optional<Book> findById(Long id) {
         return Optional.ofNullable(store.get(id));
     }
+
+    // ISBN으로 Book 조회
+    public Optional<Book> findByIsbn(String isbn) {
+        return store.values().stream()
+                .filter(b -> b.getIsbn().equals(isbn))
+                .findFirst();
+    }
+
 
     public List<Book> findByTitieContaining(String titie) {
         return store.values().stream()

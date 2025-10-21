@@ -43,4 +43,15 @@ public class BookService {
 
         return bookRepository.save(book);
     }
+
+    public Book getBook(Long id) {
+//        if(bookRepository.findById(id).isPresent()){
+//            return bookRepository.findById(id).get();
+//        } else {
+//            throw new IllegalArgumentException("해당 id를 가진 책이 존재하지 않습니다.");
+//        }
+
+        return bookRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("도서를 찾을 수가 없습니다."));
+    }
 }

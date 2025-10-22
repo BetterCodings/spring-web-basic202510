@@ -2,6 +2,7 @@ package com.codeit.springwebbasic.member.repository;
 
 import com.codeit.springwebbasic.member.entity.Member;
 import com.codeit.springwebbasic.member.entity.MemberGrade;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
+@Repository
 public class MemberRepository {
 
     private final Map<Long, Member> store = new ConcurrentHashMap<>();

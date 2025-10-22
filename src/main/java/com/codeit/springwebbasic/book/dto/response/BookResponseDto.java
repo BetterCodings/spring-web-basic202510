@@ -1,4 +1,4 @@
-package com.codeit.springwebbasic.book.controller.dto.response;
+package com.codeit.springwebbasic.book.dto.response;
 
 import com.codeit.springwebbasic.book.entity.Book;
 import com.codeit.springwebbasic.book.entity.BookStatus;

@@ -1,7 +1,7 @@
 package com.codeit.springwebbasic.book.controller;
 
-import com.codeit.springwebbasic.book.controller.dto.request.BookCreateRequestDto;
-import com.codeit.springwebbasic.book.controller.dto.response.BookResponseDto;
+import com.codeit.springwebbasic.book.dto.request.BookCreateRequestDto;
+import com.codeit.springwebbasic.book.dto.response.BookResponseDto;
 import com.codeit.springwebbasic.book.entity.Book;
 import com.codeit.springwebbasic.book.service.BookService;
 import jakarta.validation.Valid;

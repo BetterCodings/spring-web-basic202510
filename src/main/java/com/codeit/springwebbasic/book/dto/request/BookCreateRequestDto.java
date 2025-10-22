@@ -1,4 +1,4 @@
-package com.codeit.springwebbasic.book.controller.dto.request;
+package com.codeit.springwebbasic.book.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;

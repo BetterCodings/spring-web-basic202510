@@ -1,6 +1,6 @@
 package com.codeit.springwebbasic.book.service;
 
-import com.codeit.springwebbasic.book.controller.dto.request.BookCreateRequestDto;
+import com.codeit.springwebbasic.book.dto.request.BookCreateRequestDto;
 import com.codeit.springwebbasic.book.entity.Book;
 import com.codeit.springwebbasic.book.entity.BookStatus;
 import com.codeit.springwebbasic.book.repository.BookRepository;

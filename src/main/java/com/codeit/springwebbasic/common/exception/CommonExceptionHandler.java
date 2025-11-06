@@ -1,5 +1,6 @@
 package com.codeit.springwebbasic.common.exception;
 
+import com.codeit.springwebbasic.common.dto.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -20,10 +21,11 @@ public class CommonExceptionHandler {
     // 메서드를 호출한 상위 계층으로 전파됩니다.
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> illegalArgsHandler(IllegalArgumentException e) {
+    public ResponseEntity<ApiResponse<Object>> illegalArgsHandler(IllegalArgumentException e) {
         e.printStackTrace();
         // 예외의 원인을 http 상태 코드와 메세지를 통해 알려주고 싶다. -> ResponseEntity
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        ApiResponse<Object> response = ApiResponse.error("ILLEGAL_ARGS", e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

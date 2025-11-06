@@ -18,15 +18,15 @@ public class MemberService {
     public Member memberRegister(MemberCreateRequestDto memberCreateRequestDto) {
         String regex = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$";
 
-        if(!memberCreateRequestDto.getEmail().matches(regex)) {
+        if(!memberCreateRequestDto.email().matches(regex)) {
             throw new IllegalArgumentException("형식이 맞지 않는 이메일 입니다. 다시 입력해주세요.");
-        } else if (memberRepository.existsByEmail(memberCreateRequestDto.getEmail())) {
+        } else if (memberRepository.existsByEmail(memberCreateRequestDto.email())) {
             throw new IllegalArgumentException("이미 존재하는 이메일입니다. 다시 입력해주세요.");
         } else {
             Member member = Member.builder()
-                    .name(memberCreateRequestDto.getName())
-                    .email(memberCreateRequestDto.getEmail())
-                    .phone(memberCreateRequestDto.getPhone())
+                    .name(memberCreateRequestDto.name())
+                    .email(memberCreateRequestDto.email())
+                    .phone(memberCreateRequestDto.phone())
                     .grade(MemberGrade.BRONZE)
                     .joinedAt(LocalDate.now())
                     .build();

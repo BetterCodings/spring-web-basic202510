@@ -1,7 +1,8 @@
 package com.codeit.springwebbasic.member.controller;
 
+import com.codeit.springwebbasic.common.dto.ApiResponse;
 import com.codeit.springwebbasic.member.dto.request.MemberCreateRequestDto;
-import com.codeit.springwebbasic.member.dto.response.MemberCreateResponseDto;
+import com.codeit.springwebbasic.member.dto.response.MemberResponseDto;
 import com.codeit.springwebbasic.member.entity.Member;
 import com.codeit.springwebbasic.member.service.MemberService;
 import jakarta.validation.Valid;
@@ -29,9 +30,12 @@ public class MemberController {
     // 응답: id, name, email, phone, grade, joinedAt
     // 상태 코드: 201 CREATED
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<MemberCreateResponseDto> createMember(@Valid @RequestBody MemberCreateRequestDto memberCreateRequestDto) {
+    public ResponseEntity<ApiResponse<MemberResponseDto>> createMember(@Valid @RequestBody MemberCreateRequestDto memberCreateRequestDto) {
         Member member = memberService.memberRegister(memberCreateRequestDto);
-        return new ResponseEntity<>(MemberCreateResponseDto.from(member), HttpStatus.CREATED);
+
+        MemberResponseDto responseDto = MemberResponseDto.from(member);
+        ApiResponse<MemberResponseDto> response = ApiResponse.success(responseDto);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
 
@@ -40,9 +44,9 @@ public class MemberController {
     // 비즈니스로직: 회원 조회 후 리턴, 회원 없을 시 "회원을 찾을 수 없습니다." | 400 응답
     // 응답: 위에서 사용한 Response용 DTO로 응답 | 200 OK
     @GetMapping("/{id}")
-    public ResponseEntity<MemberCreateResponseDto> getMember(@PathVariable Long id) {
+    public ResponseEntity<MemberResponseDto> getMember(@PathVariable Long id) {
         Member member = memberService.getMember(id);
-        return ResponseEntity.status(HttpStatus.OK).body(MemberCreateResponseDto.from(member));
+        return ResponseEntity.status(HttpStatus.OK).body(MemberResponseDto.from(member));
     }
 
 
@@ -52,7 +56,7 @@ public class MemberController {
     // 비즈니스로직: 각 상황에 맞는 Service 메서드를 호출해서 리턴.
     // 응답: 조회된 회원(Response DTO)을 리스트에 담아서 리턴 | 200 OK
     @GetMapping
-    public ResponseEntity<List<MemberCreateResponseDto>> getMembers(@RequestParam(required = false) String name) {
+    public ResponseEntity<List<MemberResponseDto>> getMembers(@RequestParam(required = false) String name) {
         List<Member> member;
 
         if(name == null) {
@@ -61,8 +65,8 @@ public class MemberController {
             member = memberService.getMembersByName(name);
         }
 
-        List<MemberCreateResponseDto> res = member.stream()
-                .map(m -> MemberCreateResponseDto.from(m))
+        List<MemberResponseDto> res = member.stream()
+                .map(m -> MemberResponseDto.from(m))
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(res);

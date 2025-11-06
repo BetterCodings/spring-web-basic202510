@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Getter
 @Builder
-public class MemberCreateResponseDto {
+public class MemberResponseDto {
     private Long id;
     private String name;
     private String email;
@@ -17,8 +17,8 @@ public class MemberCreateResponseDto {
     private MemberGrade grade;
     private LocalDate joinedAt;
 
-    public static MemberCreateResponseDto from(Member member) {
-        return MemberCreateResponseDto.builder()
+    public static MemberResponseDto from(Member member) {
+        return MemberResponseDto.builder()
                 .id(member.getId())
                 .name(member.getName())
                 .email(member.getEmail())

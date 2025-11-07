@@ -4,3 +4,11 @@ spring:
   application:
     port: 8080
 
+logging:
+  level:
+    com.codeit.springwebbasic.common.log.LogExample: debug
+    org.springframework.web: warn
+
+  file:
+    name: C:/Users/user/Workspace/codeit-sprint-bootcamp/logs/app.log
+

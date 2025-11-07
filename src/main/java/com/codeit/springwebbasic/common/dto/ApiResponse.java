@@ -1,5 +1,8 @@
 package com.codeit.springwebbasic.common.dto;
 
+import lombok.Getter;
+
+@Getter
 // 이제부터 모든 API의 응답은 이 형식을 따를 것이다.
 public class ApiResponse<T> {
 

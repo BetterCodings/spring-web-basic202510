@@ -35,6 +35,9 @@ dependencies {
 
     // Swagger/OpenAPI 추가
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9'
+
+    // Spring AOP 의존성 추가
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
 }
 
 tasks.named('test') {

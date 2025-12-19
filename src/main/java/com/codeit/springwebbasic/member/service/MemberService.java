@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final S3FileService s3FileService;
+    private final S3PrivateFileService s3PrivateFileService;
 
     public MemberResponseDto createMember(MemberCreateRequestDto memberCreateRequestDto, MultipartFile file) {
         String regex = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$";
@@ -35,7 +36,12 @@ public class MemberService {
         try {
             // 이 url을 DB에 회원정보와 함께 저장
             // 나중에 프론트에서 회원 정보를 요청할 때 url도 같이 전달 -> 프론트에서 <img> 등으로 요청을 보낼 것
-            String url = s3FileService.uploadFileToFolder(file, "users/profile");
+            //String url = s3FileService.uploadFileToFolder(file, "users/profile");
+
+            // 만약 presigned url을 사용한다면 굳이 DB에 url을 저장할 필요가 없습니다.
+            // 파일명(객체 key)을 DB에 저장하세요. 그리고 데이터를 불러올 일이 있다면 그 때마다
+            // presigned url을 얻어내서 프론트쪽에 전달하세요.
+            String url = s3PrivateFileService.uploadToS3Bucket(file);
         } catch (IOException e) {
             log.error(e.getMessage());
             throw new RuntimeException(e);

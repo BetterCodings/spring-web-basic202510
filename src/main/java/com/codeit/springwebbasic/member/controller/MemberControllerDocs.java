@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -81,7 +83,9 @@ public interface MemberControllerDocs {
             )
     })
     ResponseEntity<ApiResponse<MemberResponseDto>> createMember(
-            @Valid @RequestBody MemberCreateRequestDto memberCreateRequestDto);
+            MemberCreateRequestDto memberCreateRequestDto,
+            MultipartFile file
+    );
 
     ResponseEntity<ApiResponse<MemberResponseDto>> getMember(@PathVariable Long id);
 
@@ -89,6 +93,7 @@ public interface MemberControllerDocs {
     // 낱개로 전달되는 데이터는 @Parameter로 설명 추가 -> json을 받을 때는 적합하지 않다
     ResponseEntity<ApiResponse<List<MemberResponseDto>>> getMembers(
             @Parameter(description = "회원 조회 (이름)", required = false)
-            @RequestParam(required = false) String name);
+            @RequestParam(required = false) String name
+    );
 
 }

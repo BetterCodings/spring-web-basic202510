@@ -7,8 +7,10 @@ import com.codeit.springwebbasic.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -26,10 +28,12 @@ public class MemberController implements MemberControllerDocs{
     // 비즈니스로직: 이메일 중복 체크 필요, DTO를 Entity로 변환해서 멤버 저장
     // 응답: id, name, email, phone, grade, joinedAt
     // 상태 코드: 201 CREATED
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<ApiResponse<MemberResponseDto>> createMember(
-            @Valid @RequestBody MemberCreateRequestDto memberCreateRequestDto) {
-        MemberResponseDto member = memberService.createMember(memberCreateRequestDto);
+            @Valid @RequestPart("request") MemberCreateRequestDto memberCreateRequestDto,
+            @RequestPart("file") MultipartFile file
+    ) {
+        MemberResponseDto member = memberService.createMember(memberCreateRequestDto, file);
         ApiResponse<MemberResponseDto> response = ApiResponse.success(member);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }

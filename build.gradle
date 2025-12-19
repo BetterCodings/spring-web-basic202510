@@ -39,6 +39,10 @@ dependencies {
 
     // Spring AOP 의존성 추가
     implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+    // AWS SDK for java
+    implementation platform('software.amazon.awssdk:bom:2.20.56')
+    implementation 'software.amazon.awssdk:s3'
 }
 
 tasks.named('test') {

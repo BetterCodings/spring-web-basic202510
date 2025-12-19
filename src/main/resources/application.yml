@@ -4,7 +4,7 @@ spring:
 
 # 로컬 호스트 개발용
   datasource:
-    url: jdbc:postgresql://localhost:8080/postgres
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: admin
     driver-class-name: org.postgresql.Driver

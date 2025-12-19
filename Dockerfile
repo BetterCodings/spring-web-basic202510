@@ -1,7 +1,8 @@
 #첫번째 스테이지 -> 빌드 영역
 # 베이스 이미지로 amazoncorretto:17 버전을 사용하겠다
 # 이미지 빌드 시 java 17 버전이 설치된 리눅스 환경을 깔아라.
-FROM amazoncorretto:17 AS build
+# FROM amazoncorretto:17 AS build, 프리티어로 인해 더 가벼운 걸로 변경
+FROM eclipse-temurin:17-jdk-alpine AS build
 
 # 작업 폴더 지정 (이제부터 컨테이너 안의 /app 이라는 폴더에서 작업할게!)
 WORKDIR /app
@@ -20,11 +21,16 @@ RUN ./gradlew clean build -x test
 
 #######################################################################################
 # 두번째 스테이지 -> 실행 영역
-FROM amazoncorretto:17
+#FROM amazoncorretto:17
+FROM eclipse-temurin:17-jre-alpine
 
 # build라는 별칭으로 만들어진 첫번째 스테이지에서
 # .jar로 끝나는 파일을 app.jar로 복사해서 이미지에 세팅
 COPY --from=build /app/build/libs/*.jar app.jar
+
+# 타임존 설정
+ENV TZ=Asia/Seoul
+RUN apk add --no--cache tzdata
 
 # 이 컨테이너가 시작될 때 무조건 실행해야 하는 명령어
 # CMD는 기본 실행 명령어를 의미. 컨테이너 실행 시에 다른 명령어가 주어지면 그 명령어로 대체됨.

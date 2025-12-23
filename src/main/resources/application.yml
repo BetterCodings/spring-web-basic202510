@@ -4,9 +4,10 @@ spring:
 
 # 로컬 호스트 개발용
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    # url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://myapp-postgres-db.cdy4e8moc3yu.ap-northeast-2.rds.amazonaws.com:5432/postgres
     username: postgres
-    password: admin
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -16,6 +17,18 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+  cloud:
+    aws:
+      credentials:
+        accessKey: ${AWS_S3_ACCESS_KEY}
+        secretKey: ${AWS_S3_SECRET_KEY}
+      region:
+        static: ap-northeast-2
+      s3:
+        bucket: s3-practice-bucket0302
+
+
 
 server:
     port: 8080
@@ -38,6 +51,12 @@ springdoc:
 
 api-docs:
   path: /my-api # Swagger가 우리 API의 정보를 얻어오기 위해서 요청하는 url
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics
 
 ---
 # Docker 환경용 프로필 (스프링 초기화시 프로필 active가 docker라면 아래 설정을 우선시하겠다.)

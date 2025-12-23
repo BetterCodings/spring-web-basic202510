@@ -24,7 +24,7 @@ jobs:
       # 1. 코드 체크아웃 (깃헙으ㅢ 코드를 actions 박업 환경에서 사술 가져 오겠다.
       # actions/checkout -> 깃허브에서 제공하는 밀성된 액션을 사용하겠다.
       - name: chetOut
-        users: actions/checkout@v4
+        uses: actions/checkout@v4
 
       # 2. 자바 설치
       - name: Setup JDK 17

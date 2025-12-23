@@ -12,6 +12,7 @@ env:
   ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
   ECS_CLUSTER: ${{ secrets.ECR_CLUSTER }}
   ECS_SERVICE: ${{ secrets.ECS_SERVICE }}
+  CONTAINER_NAME: spring-app
 
 
 # 위크플로우에서 실행될 작업을 정의

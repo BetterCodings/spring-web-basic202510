@@ -15,7 +15,7 @@ env:
 
 
 # 위크플로우에서 실행될 작업을 정의
-job:
+jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-22.04
